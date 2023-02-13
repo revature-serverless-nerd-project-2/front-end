@@ -5,9 +5,9 @@ const User = () => {
 
     const [user, setUser] = useState()
 
-  return (
-    <div>User</div>
-  )
+    return (
+      <div>User</div>
+    )
 }
 
 export default User
