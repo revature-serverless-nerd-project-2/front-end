@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import UserModel from './Model/UserModel'
 
 const User = () => {
 
-    const [user, setUser] = useState()
+  return (
+    <div>User
 
-    return (
-      <div>User</div>
-    )
+    </div>
+  )
 }
 
 export default User
