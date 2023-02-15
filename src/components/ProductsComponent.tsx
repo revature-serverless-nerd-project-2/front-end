@@ -15,7 +15,10 @@ function ProductsComponent(props: any) {
           <Card.Title>{product.name}</Card.Title>
         </Link>
           <Card.Text><strong>${product.price}</strong></Card.Text>
-          <Button bsPrefix='btn-cart' >Add to cart</Button>
+          {
+            product.quantity > 0 ? <Button bsPrefix='btn-cart' >Add to cart</Button> :
+            <Button variant='secondary' size='sm' disabled >Add to cart</Button>                                  
+          }
         </Card.Body>
       </Card>
   )
