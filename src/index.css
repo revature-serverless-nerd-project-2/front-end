@@ -1,0 +1,49 @@
+body {
+    margin:0;
+    position: relative;
+}
+
+.color-nav {
+    background-color: #ff7115;
+    height: 70px;
+    margin-bottom: 1rem;
+}
+
+main {
+    flex: 1;
+    position: relative;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.product img {
+    width: 100%;
+    max-width: 400px;
+    max-height: 250px;
+}
+
+
+#product-expanded {
+    padding-top: 4rem;
+}
+
+.btn-cart {
+    background: #ff7115;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn-cart:active{
+    background: #9b4206;
+}
+
+.login-container {
+  max-width: 600px;
+}
+
+
