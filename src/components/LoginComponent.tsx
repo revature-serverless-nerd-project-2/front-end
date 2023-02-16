@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { Link, useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { Button, Container, Form } from 'react-bootstrap';
-import { AppDispatch } from '../redux/store';
-import { useDispatch } from 'react-redux';
-import { setToken } from '../redux/token';
+import { AppDispatch, RootState } from '../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken, TokenType } from '../redux/token';
 
 
 function LoginComponent() {
+
+    const token: TokenType = useSelector((state: RootState) => state.token)
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -34,10 +36,8 @@ function LoginComponent() {
                 const token = response.data.token;
                 const username = response.data.username;
                 localStorage.setItem('token', token);
-                dispatch(setToken(token))
+                dispatch(setToken(jwt_decode(token)))
                 alert(username);
-
-                const payload: {iat: number, username: string, role:string} = jwtDecode(token);
 
                 return navigate('/');
             }
@@ -48,24 +48,29 @@ function LoginComponent() {
     }
 
   return (
-    <Container className='login-container'>
-            <h1 className='my-4'>Sign In</h1>
-            <Form onSubmit={(e) => {e.preventDefault()}} >
-                    <Form.Group className='mb-4' controlId='username'>
-                        <Form.Label >Username</Form.Label>
-                        <Form.Control className='w-50' type='text' placeholder='Username' value={username} onChange={(event) => getUsernameInput(event as any)} required/>  
-                    </Form.Group> 
-                    <Form.Group className='mb-4' controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control className='w-50' type='password' placeholder='Password' value={password} onChange={(event) => getPasswordInput(event as any)}required/>  
-                    </Form.Group>
-                <Button variant='primary' type='submit' onClick={login}>Sign In</Button>
-                <div className='mb-4'>
-                    Don't have an account?{' '} 
-                    <Link to={'/'}>Register</Link>
-                </div>
-            </Form>
-    </Container>
+    <>
+        {
+        token.role ? <Navigate to="/"/> :
+        <Container className='login-container'>
+                <h1 className='my-4'>Sign In</h1>
+                <Form onSubmit={(e) => {e.preventDefault()}} >
+                        <Form.Group className='mb-4' controlId='username'>
+                            <Form.Label >Username</Form.Label>
+                            <Form.Control className='w-50' type='text' placeholder='Username' value={username} onChange={(event) => getUsernameInput(event as any)} required/>  
+                        </Form.Group> 
+                        <Form.Group className='mb-4' controlId='password'>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control className='w-50' type='password' placeholder='Password' value={password} onChange={(event) => getPasswordInput(event as any)}required/>  
+                        </Form.Group>
+                    <Button variant='primary' type='submit' onClick={login}>Sign In</Button>
+                    <div className='mb-4'>
+                        Don't have an account?{' '} 
+                        <Link to={'/'}>Register</Link>
+                    </div>
+                </Form>
+        </Container>
+        }
+    </>
   )
 }
 

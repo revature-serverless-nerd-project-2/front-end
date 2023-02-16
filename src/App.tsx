@@ -5,6 +5,7 @@ import HomeComponent from './components/HomeComponent';
 import LoginComponent from './components/LoginComponent';
 import NavbarComponent from './components/NavbarComponent';
 import ProductComponent from './components/ProductComponent';
+import AddProductComponent from './components/AddProductComponent';
 
 
 
@@ -23,6 +24,7 @@ function App() {
               <Route path='/' element={<HomeComponent/>}/>
               <Route path='/product/:id' element={<ProductComponent/>}/>
               <Route path='/login' element={<LoginComponent/>}/>
+              <Route path='/add-product' element={<AddProductComponent/>}/>
             </Routes>
           </Container>
             

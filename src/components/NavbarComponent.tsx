@@ -1,14 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { Navbar } from 'react-bootstrap';
-import Container from 'react-bootstrap/esm/Container';
+import { Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { TokenType } from '../redux/token';
 
 function NavbarComponent() {
 
-    const token: string = useSelector((state: RootState) => state.token)
-    
+    const token: TokenType = useSelector((state: RootState) => state.token)
+
   return (
     <>
         <Navbar className="color-nav" variant='light'>
@@ -17,8 +17,9 @@ function NavbarComponent() {
                 <Navbar.Brand>RevBuy</Navbar.Brand>
               </Link>
               {
-                token ? <Link style={{textDecoration:'none', color:'black'}} to='/'>Logout</Link> :
-                <Link style={{textDecoration:'none', color:'black'}} to='/login'>Login</Link>
+                token.role === 'Admin' ? <Link style={{textDecoration:'none', color:'black'}} to='/add-product' role='authlink'>Add Product</Link> :
+                token.role === 'Customer' ? <Link style={{textDecoration:'none', color:'black'}} to='/' role='authlink'>Logout</Link> :
+                <Link style={{textDecoration:'none', color:'black'}} to='/login' role='authlink'>Login</Link>
               }
             </Container>
         </Navbar>

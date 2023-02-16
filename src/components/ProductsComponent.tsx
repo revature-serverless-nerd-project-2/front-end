@@ -7,11 +7,11 @@ function ProductsComponent(props: any) {
 
   return (
       <Card className='product'>
-        <Link to={`/product/${product.product_id}`}>
+        <Link data-testid="product-link" to={`/product/${product.product_id}`}>
           <Card.Img src={`http://localhost:8080/products/image/${product.imageUrl}`} alt={product.name} />
         </Link>
         <Card.Body>
-        <Link to={`/product/${product.product_id}`}>
+        <Link data-testid="product-link2" to={`/product/${product.product_id}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
           <Card.Text><strong>${product.price}</strong></Card.Text>
