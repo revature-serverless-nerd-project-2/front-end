@@ -3,14 +3,19 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import LoginComponent from '../LoginComponent';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom'
+import { Provider } from 'react-redux';
+import store from '../../redux/store';
 
 
 describe('LoginComponent', () => {
   test('renders the login form', () => {
     render(
       <BrowserRouter>
-        <LoginComponent />
+      <Provider store={store}>
+          <LoginComponent />
+      </Provider>
       </BrowserRouter>
+      
     );
     const usernameInput = screen.getByLabelText('Username');
     const passwordInput = screen.getByLabelText('Password');
