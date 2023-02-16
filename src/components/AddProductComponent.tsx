@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { TokenType } from '../redux/token';
 import UnauthorizedComponent from './UnauthorizedComponent';
+import axios from 'axios';
 
 function AddProductComponent() {
 
@@ -27,14 +28,27 @@ function AddProductComponent() {
     const getQuantityInput = (event: React.FormEvent<HTMLInputElement>) =>{
         setQuantity(Number(event.currentTarget.value));
     }
-    const getImageInput = (event: React.FormEvent<HTMLInputElement>) =>{
-        setImage(event.currentTarget.value);
+    const getImageInput = (event: any) =>{
+        setImage(event.target.files[0]);
     }
 
 
 
     const submit = async () => {
-        console.log(name, image, desc, price, quantity)
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('name', name);
+        formData.append('desc', desc);
+        formData.append('price', String(price));
+        formData.append('quantity', String(quantity));
+
+        axios.post('http://localhost:8080/products', formData, {
+            headers: {"Content-Type": "multipart/form-data"}
+        }).then(res => {
+            console.warn(res);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
   return (
