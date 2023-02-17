@@ -5,7 +5,7 @@ import UserModel from './Model/UserModel'
 const User = () => {
 
   return (
-    <div>User
+    <div>
 
     </div>
   )
