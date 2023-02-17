@@ -5,10 +5,13 @@ import { RootState } from '../redux/store';
 import { TokenType } from '../redux/token';
 import UnauthorizedComponent from './UnauthorizedComponent';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AddProductComponent() {
 
     const token: TokenType = useSelector((state: RootState) => state.token)
+    
+    const navigate = useNavigate();
     
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
@@ -42,13 +45,18 @@ function AddProductComponent() {
         formData.append('price', String(price));
         formData.append('quantity', String(quantity));
 
-        axios.post('http://localhost:8080/products', formData, {
-            headers: {"Content-Type": "multipart/form-data"}
-        }).then(res => {
-            console.warn(res);
-        }).catch(err => {
-            console.log(err);
-        })
+        try {
+            const response = await axios.post('http://localhost:8080/products', formData, {
+                headers: {"Content-Type": "multipart/form-data"}
+            })
+            if (response.status === 201){
+                alert("Product Created")
+                return navigate('/');
+            }
+            
+        } catch (err: any) {
+             alert(err.response.data.error);
+        }   
     }
 
   return (
