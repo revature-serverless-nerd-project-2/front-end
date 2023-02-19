@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 import { CartID, setCartID } from '../redux/cartID';
 import { v4 as uuidv4 } from 'uuid';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function CartComponent(){
     const token: TokenType = useSelector((state: RootState) => state.token);
@@ -48,16 +50,24 @@ export default function CartComponent(){
     const mappedCart = cartState ? <p>Shop to Add Items to Cart</p> : userCart.map((product, index) => {
         return(
             <div key={index}>
-                <h4>Device: {product.name}</h4>
-                <img src={`http://localhost:8080/products/image/${product.imageURL}`} alt={product.name} style={{maxWidth:'100%'}}/>
-                <p>{product.description}</p>
-                <h6>Price: ${product.price}</h6>
+                <Card className='product'>
+                <Link data-testid="product-link" to={`/product/${product.product_id}`}>
+                    <Card.Img src={`http://localhost:8080/products/image/${product.imageURL}`} alt={product.name} />
+                </Link>
+                <Card.Body>
+                    <Link data-testid="product-link2" to={`/product/${product.product_id}`}>
+                        <Card.Title>{product.name}</Card.Title>
+                    </Link>
+                    <Card.Text><strong>Description:</strong> {product.description}</Card.Text>
+                    <Card.Text><strong>${product.price}</strong></Card.Text>
+                </Card.Body>
+            </Card>
             </div>
         )
     })
 
     return (
-        <div>
+        <div>            
             <h1>Cart</h1>
             {mappedCart}
             <h2>Total Amount: ${total}</h2>
