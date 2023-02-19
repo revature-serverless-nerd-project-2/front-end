@@ -7,6 +7,7 @@ import LoadingComponent from "../LoadingComponent";
 import { type } from "os";
 import ProductsComponent from "../ProductsComponent";
 import PreviousOrdersCard from "./previous-orders-card";
+import Date from "./date";
 
 export interface ErrorType {
         loading: boolean
@@ -21,30 +22,29 @@ function PreviousOrdersPage() {
     }, []);
         
     async function retrieveOrders() {
-        const response = await axios.get('http://127.0.0.1:8080/previous-orders?username=user1', {
-            /*headers: {
+        const response = await axios.get('http://127.0.0.1:8080/previous-orders', {
+            headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-            
-                params: { username: "user1"}*/
-             
+            }     
         });
 
         setOrders(response.data);
     }
-        console.log(orders);
 
            return(
+            
                 <>
-                <h2>Previous Orders</h2>
+                <h2 className="header">Previous Orders</h2>
+                <div>
+                <div className="container">
                 <ul>{orders.map(order => (
                     <ul key={order.timestamp}>
                         <PreviousOrdersCard order={order}/>
-                        </ul>
+                        </ul>  
                 ))
                 }
                 </ul>
-                </>
-            )}/* */
+                </div></div></>
+            )}
 
         export default PreviousOrdersPage;
