@@ -1,30 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { AppDispatch, RootState } from '../redux/store';
 import { TokenType } from '../redux/token';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { CartID, setCartID } from '../redux/cartID';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToTotal } from '../redux/total';
 
 function ProductsComponent(props: any) {
   const { product } = props;
   const token: TokenType = useSelector((state: RootState) => state.token)
-  //const username = token.username;
-  const username = 'user1';
+  const cartID: string = useSelector((state: RootState) => state.cartID.id);
+  const username = token.username;
   const BASE_URL = "http://localhost:8080/newitems";
+  const dispatch: AppDispatch = useDispatch();
+
+  const [cartName, setCartName] = useState(cartID);
 
   async function addItemToCart(){
-    await axios.patch(BASE_URL,
+    alert('Item Added To Cart!')
+    let user;
+    if(username !== ''){
+      user = username;
+    } else if(!cartID){
+      user = username;
+    } else {
+      user = cartID;
+    };
+    const response = await axios.patch(BASE_URL,
        {
         'product_id': product.product_id,
         'description': product.description,
         'imageURL': product.imageUrl,
         'name': product.name,
         'price': product.price,
-        'username': username
+        'username': user
       })
-}
 
+      if(!cartID){
+        const guestCartID = response.data;
+        generateGuestAlias(guestCartID);
+      }
+
+      dispatch(addToTotal({total: product.price}));
+  }
+
+  function generateGuestAlias(id: string){
+    dispatch(setCartID({id}))
+    setCartName(id);
+  }
+  
   return (
       <Card className='product'>
         <Link data-testid="product-link" to={`/product/${product.product_id}`}>

@@ -13,6 +13,7 @@ function NavbarComponent() {
     <>
         <Navbar className="color-nav" variant='light'>
             <Container fluid>
+            
               <Link style={{textDecoration:'none'}} to="/">
                 <Navbar.Brand>RevBuy</Navbar.Brand>
               </Link>
@@ -24,6 +25,7 @@ function NavbarComponent() {
                 token.role === 'Customer' ? <Link style={{textDecoration:'none', color:'black'}} to='/' role='authlink'>Logout</Link> :
                 <Link style={{textDecoration:'none', color:'black'}} to='/login' role='authlink'>Login</Link>
               }
+                <Link style={{textDecoration:'none', color:'black'}} to='/register'>Sign Up</Link>
             </Container>
         </Navbar>
     </>

@@ -6,11 +6,13 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken, TokenType } from '../redux/token';
+import { setCartID } from '../redux/cartID';
 
 
 function LoginComponent() {
 
     const token: TokenType = useSelector((state: RootState) => state.token)
+    const cartID: string = useSelector((state: RootState) => state.cartID.id);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -38,6 +40,7 @@ function LoginComponent() {
                 localStorage.setItem('token', token);
                 dispatch(setToken(jwt_decode(token)))
                 alert(username);
+                dispatch(setCartID({id: username}))
 
                 return navigate('/');
             }

@@ -1,0 +1,49 @@
+h3 {
+    text-align: center;
+}
+
+.registration {
+    position: sticky;
+    background-color: white;
+    display: flex;
+    flex-flow: column;
+    max-width: 20%;
+    min-height: 675px;
+    margin: auto;
+    padding: 30px 24px 80px;
+    justify-content: center;
+    box-sizing: border-box;
+    line-height: 1.2;
+}
+
+.registerbtn {
+    font-size: 15px;
+    margin-left: 10%;
+    height: 45px;
+    width: 80%;
+    padding: 8px 20px;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .registerbtn:hover {
+    transition: all 0.3s ease-out;
+    background: rgb(207, 135, 53);
+    color: #242424;
+    transition: 250ms;
+  }
+
+  input {
+    font-size: 15px;
+    border-width: 1px;
+    line-height: 18px;
+    height: 45px;
+    width: 100%;
+    text-indent: 2px;
+  }
+
+  .background {
+    background-color: gray;
+  }
