@@ -1,61 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TokenType } from '../redux/token';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { CartID, setCartID } from '../redux/cartID';
+import { v4 as uuidv4 } from 'uuid';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function CartComponent(){
-    const token: TokenType = useSelector((state: RootState) => state.token)
-    //const username = token.username;
-    const username = 'user1';
+    const token: TokenType = useSelector((state: RootState) => state.token);
+    const username = token.username;
     const BASE_URL = "http://localhost:8080/carts";
-
+    const cartID: string = useSelector((state: RootState) => state.cartID.id);
+    const dispatch: AppDispatch = useDispatch();
+    const grandTotal: number = useSelector((state: RootState) => state.total.total)
     const [userCart, setUserCart] = useState<any[]>([]);
-    const [empty, setEmptyState] = useState<boolean>(true);
-
-    const changeEmptyState = (newState: boolean) => {
-        setEmptyState(newState)
-    }
+    const [cartState, setCartState] = useState(true);
+    const [cartName, setCartName] = useState<string>();
+    const [total, setTotal] = useState<number>(grandTotal);
+    let blankArr: any[] = [];
+    
 
     const axiosGetCart = async () => {
-        const response = await axios.get(BASE_URL, {params: {username: username}}).then((response) => {
-            //setUserCart([...userCart, response.data]);
-            setUserCart(response.data);
-            //console.log(response.data);
-            /*if(userCart.length > 0){
-                changeEmptyState(false);
+        let user;
+        if(!username){
+            if(cartID){
+                user = cartID;
             } else {
-                changeEmptyState(true);
-                console.log(userCart);
-            }*/
-
-            console.log(empty);
+                user = username;
+            }
+        }
+        const response = await axios.get(BASE_URL, {params: {username: user}}).then((response) => {
+            if(response.data === 'No Items in Cart'){
+                setUserCart([blankArr]);
+                setCartState(true);
+            } else{
+                setUserCart([...userCart, ...response.data]);
+                setCartState(false);
+            }
         });
     };
 
     useEffect(() => {
         axiosGetCart();
+        setTotal(grandTotal);
     }, []);
 
-    const mappedCart = userCart.map((product, index) => {
+    const mappedCart = cartState ? <p>Shop to Add Items to Cart</p> : userCart.map((product, index) => {
         return(
             <div key={index}>
-                <h4>Device: {product.name}</h4>
-                <img src={`http://localhost:8080/products/image/${product.imageURL}`} alt={product.name} style={{maxWidth:'100%'}}/>
-                <p>{product.description}</p>
-                <h6>Price: ${product.price}</h6>
+                <Card className='product'>
+                <Link data-testid="product-link" to={`/product/${product.product_id}`}>
+                    <Card.Img src={`http://localhost:8080/products/image/${product.imageURL}`} alt={product.name} />
+                </Link>
+                <Card.Body>
+                    <Link data-testid="product-link2" to={`/product/${product.product_id}`}>
+                        <Card.Title>{product.name}</Card.Title>
+                    </Link>
+                    <Card.Text><strong>Description:</strong> {product.description}</Card.Text>
+                    <Card.Text><strong>${product.price}</strong></Card.Text>
+                </Card.Body>
+            </Card>
             </div>
         )
     })
 
     return (
-        <div>
+        <div>            
             <h1>Cart</h1>
-            {/*empty ? <p>Cart Is Empty</p> :*/ mappedCart}
+            {mappedCart}
+            <h2>Total Amount: ${total}</h2>
         </div>
     );
 }
-
-
 
