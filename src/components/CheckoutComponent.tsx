@@ -32,7 +32,7 @@ function CheckoutComponent () {
     }
     const getUsernameInput = (event: React.FormEvent<HTMLInputElement>) =>{
       setUsername(event.currentTarget.value);
-  }
+    }
     const getEmailInput = (event: React.FormEvent<HTMLInputElement>) =>{
         setEmail(event.currentTarget.value);
     }
@@ -143,7 +143,7 @@ function CheckoutComponent () {
                         <Form.Group className="mb-4" id="formGridCheckbox">
                         <Form.Check type="checkbox" label="Save this information for next time" />
                         </Form.Group>
-                    <Button variant='primary' type='submit' onClick={checkout}>Place Order</Button>
+                    <Button variant='primary' bsPrefix='btn-cart' type='submit' onClick={checkout}>Place Order</Button>
                     
                 </Form>
                 </Container>
