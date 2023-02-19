@@ -87,6 +87,7 @@ function AddProductComponent() {
                             <Form.Control className='w-50' type='number' placeholder='Quantity' value={quantity} onChange={(event) => getQuantityInput(event as any)} required/>  
                         </Form.Group>
                     <Button variant='primary' type='submit' onClick={submit}>Add product</Button>
+                    
                 </Form>
         
         </Container>

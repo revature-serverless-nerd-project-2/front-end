@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Alert, Badge, Button, Col, ListGroup, Row, ThemeProvider } from 'react-bootstrap';
+import { Alert, Badge, Button, Col, ListGroup, Row /*ThemeProvider*/ } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import LoadingComponent from './LoadingComponent';
 
@@ -33,6 +33,7 @@ function ProductComponent() {
             
         };
         fetchProduct();
+        // eslint-disable-next-line
     }, [])
 
     function addItemToCart(){
