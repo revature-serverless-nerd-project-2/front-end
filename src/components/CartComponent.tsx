@@ -7,30 +7,22 @@ import { RootState } from '../redux/store';
 
 export default function CartComponent(){
     const token: TokenType = useSelector((state: RootState) => state.token)
-    //const username = token.username;
-    const username = 'user1';
+    const username = token.username;
     const BASE_URL = "http://localhost:8080/carts";
 
     const [userCart, setUserCart] = useState<any[]>([]);
-    const [empty, setEmptyState] = useState<boolean>(true);
-
-    const changeEmptyState = (newState: boolean) => {
-        setEmptyState(newState)
-    }
+    const [cartState, setCartState] = useState(true);
+    let blankArr: any[] = [];
 
     const axiosGetCart = async () => {
         const response = await axios.get(BASE_URL, {params: {username: username}}).then((response) => {
-            //setUserCart([...userCart, response.data]);
-            setUserCart(response.data);
-            //console.log(response.data);
-            /*if(userCart.length > 0){
-                changeEmptyState(false);
-            } else {
-                changeEmptyState(true);
-                console.log(userCart);
-            }*/
-
-            console.log(empty);
+            if(response.data == 'No Items in Cart'){
+                setUserCart([blankArr]);
+                setCartState(true);
+            } else{
+                setUserCart(response.data);
+                setCartState(false);
+            }
         });
     };
 
@@ -38,7 +30,7 @@ export default function CartComponent(){
         axiosGetCart();
     }, []);
 
-    const mappedCart = userCart.map((product, index) => {
+    const mappedCart = cartState ? <p>Shop to Add Items to Cart</p> : userCart.map((product, index) => {
         return(
             <div key={index}>
                 <h4>Device: {product.name}</h4>
@@ -52,7 +44,7 @@ export default function CartComponent(){
     return (
         <div>
             <h1>Cart</h1>
-            {/*empty ? <p>Cart Is Empty</p> :*/ mappedCart}
+            {mappedCart}
         </div>
     );
 }

@@ -9,12 +9,13 @@ import { RootState } from '../redux/store';
 function ProductsComponent(props: any) {
   const { product } = props;
   const token: TokenType = useSelector((state: RootState) => state.token)
-  //const username = token.username;
-  const username = 'user1';
+  const username = token.username;
   const BASE_URL = "http://localhost:8080/newitems";
 
   async function addItemToCart(){
-    await axios.patch(BASE_URL,
+    alert('Item Added To Cart!')
+
+    const response = await axios.patch(BASE_URL,
        {
         'product_id': product.product_id,
         'description': product.description,
@@ -23,8 +24,17 @@ function ProductsComponent(props: any) {
         'price': product.price,
         'username': username
       })
-}
 
+      const generatedAlias = response.data;
+      if(!username){
+        setGuestAlias(generatedAlias);
+      }
+  }
+
+  function setGuestAlias(alias: string){
+    
+  }
+  
   return (
       <Card className='product'>
         <Link data-testid="product-link" to={`/product/${product.product_id}`}>

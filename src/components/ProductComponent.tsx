@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Badge, Button, Col, ListGroup, Row, ThemeProvider } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import LoadingComponent from './LoadingComponent';
+import { TokenType } from '../redux/token';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 export interface ErrorType {
     loading: boolean
@@ -19,6 +22,9 @@ function ProductComponent() {
     const { id } = useParams();
     const [product , setProduct] = useState<any>();
     const [fetch, setFetch] = useState<ErrorType>({ loading: true, error:false, message:"" })
+    const token: TokenType = useSelector((state: RootState) => state.token)
+    const username = token.username;
+    const cartURL = "http://localhost:8080/newitems";
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -35,8 +41,17 @@ function ProductComponent() {
         fetchProduct();
     }, [])
 
-    function addItemToCart(){
-        console.log('working');
+    async function addItemToCart(){
+        alert('Item Added To Cart!');
+        await axios.patch(cartURL,
+            {
+             'product_id': product.product_id,
+             'description': product.description,
+             'imageURL': product.imageUrl,
+             'name': product.name,
+             'price': product.price,
+             'username': username
+           })
     }
    
 
