@@ -1,10 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tokenReducer from "./token"
+import cartIDReducer from './cartID'
+import totalReducer from './total'
 
 
 const store = configureStore({
     reducer: {
-        token: tokenReducer
+        token: tokenReducer,
+        cartID: cartIDReducer,
+        total: totalReducer
+
     }
 });
 

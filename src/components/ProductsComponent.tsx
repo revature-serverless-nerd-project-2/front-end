@@ -1,20 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { AppDispatch, RootState } from '../redux/store';
 import { TokenType } from '../redux/token';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { CartID, setCartID } from '../redux/cartID';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToTotal } from '../redux/total';
 
 function ProductsComponent(props: any) {
   const { product } = props;
   const token: TokenType = useSelector((state: RootState) => state.token)
+  const cartID: string = useSelector((state: RootState) => state.cartID.id);
   const username = token.username;
   const BASE_URL = "http://localhost:8080/newitems";
+  const dispatch: AppDispatch = useDispatch();
+
+  const [cartName, setCartName] = useState(cartID);
 
   async function addItemToCart(){
     alert('Item Added To Cart!')
-
+    let user;
+    if(username !== ''){
+      user = username;
+    } else if(!cartID){
+      user = username;
+    } else {
+      user = cartID;
+    };
     const response = await axios.patch(BASE_URL,
        {
         'product_id': product.product_id,
@@ -22,17 +35,20 @@ function ProductsComponent(props: any) {
         'imageURL': product.imageUrl,
         'name': product.name,
         'price': product.price,
-        'username': username
+        'username': user
       })
 
-      const generatedAlias = response.data;
-      if(!username){
-        setGuestAlias(generatedAlias);
+      if(!cartID){
+        const guestCartID = response.data;
+        generateGuestAlias(guestCartID);
       }
+
+      dispatch(addToTotal({total: product.price}));
   }
 
-  function setGuestAlias(alias: string){
-    
+  function generateGuestAlias(id: string){
+    dispatch(setCartID({id}))
+    setCartName(id);
   }
   
   return (

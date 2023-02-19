@@ -4,8 +4,10 @@ import { Alert, Badge, Button, Col, ListGroup, Row, ThemeProvider } from 'react-
 import { useParams } from 'react-router-dom'
 import LoadingComponent from './LoadingComponent';
 import { TokenType } from '../redux/token';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { setCartID } from '../redux/cartID';
+import { addToTotal } from '../redux/total';
 
 export interface ErrorType {
     loading: boolean
@@ -25,6 +27,10 @@ function ProductComponent() {
     const token: TokenType = useSelector((state: RootState) => state.token)
     const username = token.username;
     const cartURL = "http://localhost:8080/newitems";
+    const dispatch: AppDispatch = useDispatch();
+    const cartID: string = useSelector((state: RootState) => state.cartID.id);
+
+    const [cartName, setCartName] = useState<string>();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -43,15 +49,35 @@ function ProductComponent() {
 
     async function addItemToCart(){
         alert('Item Added To Cart!');
-        await axios.patch(cartURL,
+        let user;
+        if(username !== ''){
+            user = username;
+        } else if(!cartID){
+            user = username;
+        } else {
+            user = cartID;
+        }
+        const response = await axios.patch(cartURL,
             {
              'product_id': product.product_id,
              'description': product.description,
              'imageURL': product.imageUrl,
              'name': product.name,
              'price': product.price,
-             'username': username
+             'username': user
            })
+
+           if(!cartID){
+            const guestCartID = response.data;
+            generateGuestAlias(guestCartID);
+          }
+
+          dispatch(addToTotal({total: product.price}));
+    }
+
+    function generateGuestAlias(id: string){
+        dispatch(setCartID({id}))
+        setCartName(id);
     }
    
 
