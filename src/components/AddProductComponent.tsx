@@ -4,10 +4,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { TokenType } from '../redux/token';
 import UnauthorizedComponent from './UnauthorizedComponent';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AddProductComponent() {
 
     const token: TokenType = useSelector((state: RootState) => state.token)
+    
+    const navigate = useNavigate();
     
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
@@ -27,14 +31,32 @@ function AddProductComponent() {
     const getQuantityInput = (event: React.FormEvent<HTMLInputElement>) =>{
         setQuantity(Number(event.currentTarget.value));
     }
-    const getImageInput = (event: React.FormEvent<HTMLInputElement>) =>{
-        setImage(event.currentTarget.value);
+    const getImageInput = (event: any) =>{
+        setImage(event.target.files[0]);
     }
 
 
 
     const submit = async () => {
-        console.log(name, image, desc, price, quantity)
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('name', name);
+        formData.append('desc', desc);
+        formData.append('price', String(price));
+        formData.append('quantity', String(quantity));
+
+        try {
+            const response = await axios.post('http://localhost:8080/products', formData, {
+                headers: {"Content-Type": "multipart/form-data"}
+            })
+            if (response.status === 201){
+                alert("Product Created")
+                return navigate('/');
+            }
+            
+        } catch (err: any) {
+             alert(err.response.data.error);
+        }   
     }
 
   return (

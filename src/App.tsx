@@ -6,8 +6,12 @@ import LoginComponent from './components/LoginComponent';
 import NavbarComponent from './components/NavbarComponent';
 import ProductComponent from './components/ProductComponent';
 import AddProductComponent from './components/AddProductComponent';
+
 import CheckoutComponent from './components/CheckoutComponent';
 import CompleteCheckoutComponent from './components/CompleteCheckoutComponent';
+
+import CartComponent from './components/CartComponent';
+
 
 
 
@@ -27,8 +31,12 @@ function App() {
               <Route path='/product/:id' element={<ProductComponent/>}/>
               <Route path='/login' element={<LoginComponent/>}/>
               <Route path='/add-product' element={<AddProductComponent/>}/>
+
               <Route path='/checkout' element={<CheckoutComponent/>}/>
               <Route path='/complete' element={<CompleteCheckoutComponent/>}/>
+
+              <Route path='/carts' element={<CartComponent/>}/>
+
             </Routes>
           </Container>
             
