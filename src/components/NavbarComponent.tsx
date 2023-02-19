@@ -16,6 +16,9 @@ function NavbarComponent() {
               <Link style={{textDecoration:'none'}} to="/">
                 <Navbar.Brand>RevBuy</Navbar.Brand>
               </Link>
+              <Link style={{textDecoration:'none'}} to="/carts">
+                <Navbar.Brand>Cart</Navbar.Brand>
+              </Link>
               {
                 token.role === 'Admin' ? <Link style={{textDecoration:'none', color:'black'}} to='/add-product' role='authlink'>Add Product</Link> :
                 token.role === 'Customer' ? <Link style={{textDecoration:'none', color:'black'}} to='/' role='authlink'>Logout</Link> :
