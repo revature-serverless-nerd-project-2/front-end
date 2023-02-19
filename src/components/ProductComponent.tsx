@@ -34,6 +34,10 @@ function ProductComponent() {
         };
         fetchProduct();
     }, [])
+
+    function addItemToCart(){
+        console.log('working');
+    }
    
 
     return (
@@ -68,7 +72,7 @@ function ProductComponent() {
                                             {
                                                 product.quantity > 0 ? 
                                                 <Col>
-                                                    <Button bsPrefix='btn-cart'>Add to cart</Button>
+                                                    <Button bsPrefix='btn-cart' onClick={addItemToCart}>Add to cart</Button>
                                                 </Col> :
                                                 <Col><Button variant='secondary' disabled>Add to cart</Button></Col>
                                             }   
