@@ -13,7 +13,7 @@ function ProductsComponent(props: any) {
   const token: TokenType = useSelector((state: RootState) => state.token)
   const cartID: string = useSelector((state: RootState) => state.cartID.id);
   const username = token.username;
-  const BASE_URL = "http://localhost:8080/newitems";
+  const BASE_URL = "http://3.134.105.20:4000/newitems";
   const dispatch: AppDispatch = useDispatch();
 
   const [cartName, setCartName] = useState(cartID);
@@ -54,7 +54,7 @@ function ProductsComponent(props: any) {
   return (
       <Card className='product'>
         <Link data-testid="product-link" to={`/product/${product.product_id}`}>
-          <Card.Img src={`http://localhost:8080/products/image/${product.imageUrl}`} alt={product.name} />
+          <Card.Img src={`http://3.134.105.20:4000/products/image/${product.imageUrl}`} alt={product.name} />
         </Link>
         <Card.Body>
         <Link data-testid="product-link2" to={`/product/${product.product_id}`}>

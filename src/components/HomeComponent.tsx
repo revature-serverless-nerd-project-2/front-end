@@ -6,7 +6,7 @@ import { ErrorType } from './ProductComponent';
 import ProductsComponent from './ProductsComponent';
 
 const api = axios.create({
-  baseURL: `http://localhost:8080/products`
+  baseURL: `http://3.134.105.20:4000/products`
 })
 
 function HomeComponent() {

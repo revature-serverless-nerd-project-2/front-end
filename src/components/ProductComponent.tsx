@@ -16,7 +16,7 @@ export interface ErrorType {
 }
 
 const api = axios.create({
-  baseURL: `http://localhost:8080/products`
+  baseURL: `http://3.134.105.20:4000/products`
 })
 
 
@@ -26,7 +26,7 @@ function ProductComponent() {
     const [fetch, setFetch] = useState<ErrorType>({ loading: true, error:false, message:"" })
     const token: TokenType = useSelector((state: RootState) => state.token)
     const username = token.username;
-    const cartURL = "http://localhost:8080/newitems";
+    const cartURL = "http://3.134.105.20:4000/newitems";
     const dispatch: AppDispatch = useDispatch();
     const cartID: string = useSelector((state: RootState) => state.cartID.id);
 
@@ -91,7 +91,7 @@ function ProductComponent() {
                     <div>
                         <Row>
                             <Col md={6}>
-                                <img src={`http://localhost:8080/products/image/${product.imageUrl}`} alt={product.name} style={{maxWidth:'100%'}}/>
+                                <img src={`http://3.134.105.20:4000/products/image/${product.imageUrl}`} alt={product.name} style={{maxWidth:'100%'}}/>
                             </Col>
                             <Col md={4} className='mb-5'>
                                 <ListGroup>

@@ -32,7 +32,7 @@ function LoginComponent() {
 
     async function login() {
         try {
-            const response = await axios.post('http://localhost:8080/login', {'username':username, 'password':password});
+            const response = await axios.post('http://3.134.105.20:4000/login', {'username':username, 'password':password});
             if (response.status === 200) {
 
                 const token = response.data.token;
