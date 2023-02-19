@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Badge, Button, Col, ListGroup, Row /*ThemeProvider*/ } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import LoadingComponent from './LoadingComponent';
+import { TokenType } from '../redux/token';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { setCartID } from '../redux/cartID';
+import { addToTotal } from '../redux/total';
 
 export interface ErrorType {
     loading: boolean
@@ -19,6 +24,13 @@ function ProductComponent() {
     const { id } = useParams();
     const [product , setProduct] = useState<any>();
     const [fetch, setFetch] = useState<ErrorType>({ loading: true, error:false, message:"" })
+    const token: TokenType = useSelector((state: RootState) => state.token)
+    const username = token.username;
+    const cartURL = "http://localhost:8080/newitems";
+    const dispatch: AppDispatch = useDispatch();
+    const cartID: string = useSelector((state: RootState) => state.cartID.id);
+
+    const [cartName, setCartName] = useState<string>();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -36,8 +48,37 @@ function ProductComponent() {
         // eslint-disable-next-line
     }, [])
 
-    function addItemToCart(){
-        console.log('working');
+    async function addItemToCart(){
+        alert('Item Added To Cart!');
+        let user;
+        if(username !== ''){
+            user = username;
+        } else if(!cartID){
+            user = username;
+        } else {
+            user = cartID;
+        }
+        const response = await axios.patch(cartURL,
+            {
+             'product_id': product.product_id,
+             'description': product.description,
+             'imageURL': product.imageUrl,
+             'name': product.name,
+             'price': product.price,
+             'username': user
+           })
+
+           if(!cartID){
+            const guestCartID = response.data;
+            generateGuestAlias(guestCartID);
+          }
+
+          dispatch(addToTotal({total: product.price}));
+    }
+
+    function generateGuestAlias(id: string){
+        dispatch(setCartID({id}))
+        setCartName(id);
     }
    
 
