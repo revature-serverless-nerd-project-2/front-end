@@ -28,10 +28,8 @@ export default function CartComponent(){
         if(!username){
             if(cartID){
                 user = cartID;
-                console.log(`chose cartid`)
             } else {
                 user = username;
-                console.log(`chose username`);
             }
         } else {
             user = username;
