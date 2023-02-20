@@ -13,7 +13,7 @@ function Register() {
     const [ address, setAddress ] = useState('');
 
     async function registerSubmit() {
-            const response = await axios.post('http://3.134.105.20/register', {"username": username, "password": password, "confirmPassword": confirmPassword, 
+            const response = await axios.post('http://3.134.105.20:4000/register', {"username": username, "password": password, "confirmPassword": confirmPassword, 
             "name": name, "address": address });
 
         if (response.status === 201) {
