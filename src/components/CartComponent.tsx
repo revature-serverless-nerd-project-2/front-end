@@ -7,7 +7,7 @@ import { CartID, setCartID } from '../redux/cartID';
 // import { v4 as uuidv4 } from 'uuid';
 import { Button, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { resetTotal } from '../redux/total';
+import { resetTotal, updateTotal } from '../redux/total';
 
 export default function CartComponent(){
     const token: TokenType = useSelector((state: RootState) => state.token);
@@ -76,6 +76,8 @@ export default function CartComponent(){
             </div>
         )
     })
+
+    dispatch(updateTotal({total: totalCost}));
     const navigate = useNavigate();
 
     function onNavigate () {
