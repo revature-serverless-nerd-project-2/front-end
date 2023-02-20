@@ -36,7 +36,6 @@ export default function CartComponent(){
         } else {
             user = username;
         }
-        console.log(`using ${user} as alias`);
         const response = await axios.get(BASE_URL, {params: {username: user}}).then((response) => {
             if(response.data === 'No Items in Cart'){
                 setUserCart([blankArr]);
