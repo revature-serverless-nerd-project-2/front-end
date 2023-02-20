@@ -27,10 +27,15 @@ export default function CartComponent(){
         if(!username){
             if(cartID){
                 user = cartID;
+                console.log(`chose cartid`)
             } else {
                 user = username;
+                console.log(`chose username`);
             }
+        } else {
+            user = username;
         }
+        console.log(`using ${user} as alias`);
         const response = await axios.get(BASE_URL, {params: {username: user}}).then((response) => {
             if(response.data === 'No Items in Cart'){
                 setUserCart([blankArr]);
@@ -50,19 +55,20 @@ export default function CartComponent(){
     const mappedCart = cartState ? <p>Shop to Add Items to Cart</p> : userCart.map((product, index) => {
         return(
             <div key={index}>
-                <Card className='product'>
-                <Link data-testid="product-link" to={`/product/${product.product_id}`}>
-                    <Card.Img src={`http://3.134.105.20:4000/products/image/${product.imageURL}`} alt={product.name} />
-                </Link>
-                <Card.Body>
-                    <Link data-testid="product-link2" to={`/product/${product.product_id}`}>
-                        <Card.Title>{product.name}</Card.Title>
-                    </Link>
-                    <Card.Text><strong>Description:</strong> {product.description}</Card.Text>
-                    <Card.Text><strong>${product.price}</strong></Card.Text>
-                </Card.Body>
-            </Card>
-           
+                    
+                    <Card className='product'>
+                        <Link data-testid="product-link" to={`/product/${product.product_id}`}>
+                            <Card.Img src={`http://3.134.105.20:4000/products/image/${product.imageURL}`} alt={product.name} />
+                        </Link>
+                        <Card.Body>
+                            <Link data-testid="product-link2" to={`/product/${product.product_id}`}>
+                                <Card.Title>{product.name}</Card.Title>
+                            </Link>
+                            <Card.Text><strong>Description:</strong> {product.description}</Card.Text>
+                            <Card.Text><strong>${product.price}</strong></Card.Text>
+                        </Card.Body>
+                    </Card>
+
             </div>
         )
     })
