@@ -22,7 +22,7 @@ function NavbarComponent() {
               </Link>
               {
                 token.role === 'Admin' ? <Link style={{textDecoration:'none', color:'black'}} to='/add-product' role='authlink'>Add Product</Link> :
-                token.role === 'Customer' ? <Link style={{textDecoration:'none', color:'black'}} to='/' role='authlink'>Logout</Link> :
+                token.role === 'Customer' ? <Link style={{textDecoration:'none', color:'black'}} to='/logout' role='authlink'>Logout</Link> :
                 <Link style={{textDecoration:'none', color:'black'}} to='/login' role='authlink'>Login</Link>
               }
                 <Link style={{textDecoration:'none', color:'black'}} to='/register'>Sign Up</Link>
