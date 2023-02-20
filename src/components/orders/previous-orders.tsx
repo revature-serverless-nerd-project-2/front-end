@@ -35,8 +35,6 @@ function PreviousOrdersPage() {
 
     }
 
-    console.log(orders)
-
            return(
             
                 <>
