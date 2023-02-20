@@ -22,7 +22,7 @@ function PreviousOrdersPage() {
     }, []);
         
     async function retrieveOrders() {
-        const response = await axios.get('http://3.134.105.20/previous-orders', {
+        const response = await axios.get('http://3.134.105.20:4000/previous-orders', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }     
