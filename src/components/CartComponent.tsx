@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function CartComponent(){
     const token: TokenType = useSelector((state: RootState) => state.token);
     const username = token.username;
-    const BASE_URL = "http://localhost:8080/carts";
+    const BASE_URL = "http://3.134.105.20:4000/carts";
     const cartID: string = useSelector((state: RootState) => state.cartID.id);
     const dispatch: AppDispatch = useDispatch();
     const grandTotal: number = useSelector((state: RootState) => state.total.total)
@@ -52,7 +52,7 @@ export default function CartComponent(){
             <div key={index}>
                 <Card className='product'>
                 <Link data-testid="product-link" to={`/product/${product.product_id}`}>
-                    <Card.Img src={`http://localhost:8080/products/image/${product.imageURL}`} alt={product.name} />
+                    <Card.Img src={`http://3.134.105.20:4000/products/image/${product.imageURL}`} alt={product.name} />
                 </Link>
                 <Card.Body>
                     <Link data-testid="product-link2" to={`/product/${product.product_id}`}>
