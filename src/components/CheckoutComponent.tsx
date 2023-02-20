@@ -68,7 +68,7 @@ function CheckoutComponent () {
         const response = await axios.post('http://3.134.105.20:4000/orders', {
             'Firstname':Firstname, 
             'Lastname':Lastname, 
-            'username' :username,
+            // 'username' :username,
             'Email' :Email,
             'Address' :Address,
             'City' :City,
@@ -110,10 +110,10 @@ function CheckoutComponent () {
                             <Form.Control className='w-50' type='text' placeholder='Lastname' value={Lastname} onChange={(event) => getLastNameInput(event as any)} required/>  
                         </Form.Group>
                         </Row>
-                        <Form.Group as={Col} className='mb-4' controlId='username'>
+                        {/* <Form.Group as={Col} className='mb-4' controlId='username'>
                             <Form.Label>username</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='username' value={username} onChange={(event) => getUsernameInput(event as any)} required/>  
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className='mb-4' controlId='Email'>
                             <Form.Label>Email</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='Enter email' value={Email} onChange={(event) => getEmailInput(event as any)} required/>  
