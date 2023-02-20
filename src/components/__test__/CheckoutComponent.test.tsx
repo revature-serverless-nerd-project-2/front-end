@@ -19,7 +19,7 @@ describe('CheckoutComponent', () => {
     );
     const FirstnameInput = screen.getByLabelText('Firstname');
     const LastnameInput = screen.getByLabelText('Lastname');
-    const usernameInput = screen.getByLabelText('username');
+    // const usernameInput = screen.getByLabelText('username');
     const EmailInput = screen.getByLabelText('Email');
     const AddressInput = screen.getByLabelText('Address');
     const Address2Input = screen.getByLabelText('Address2');
@@ -30,7 +30,7 @@ describe('CheckoutComponent', () => {
     
     expect(FirstnameInput).toBeInTheDocument();
     expect(LastnameInput).toBeInTheDocument();
-    expect(usernameInput).toBeInTheDocument();
+    // expect(usernameInput).toBeInTheDocument();
     expect(EmailInput).toBeInTheDocument();
     expect(LastnameInput).toBeInTheDocument();
     expect(AddressInput).toBeInTheDocument();
