@@ -65,7 +65,7 @@ function CheckoutComponent () {
     
     
     async function checkout() {
-        const response = await axios.post('http://localhost:8080/orders', {
+        const response = await axios.post('http://3.134.105.20:4000/orders', {
             'Firstname':Firstname, 
             'Lastname':Lastname, 
             'username' :username,

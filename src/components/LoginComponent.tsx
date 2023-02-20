@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken, TokenType } from '../redux/token';
@@ -54,23 +54,24 @@ function LoginComponent() {
     <>
         {
         token.role ? <Navigate to="/"/> :
-        <Container className='login-container'>
-                <h1 className='my-4'>Sign In</h1>
+        <Container className='login-container'>   
+            <Row className="text-center"><Col><h1 >Sign In</h1></Col>            
                 <Form onSubmit={(e) => {e.preventDefault()}} >
                         <Form.Group className='mb-4' controlId='username'>
                             <Form.Label >Username</Form.Label>
-                            <Form.Control className='w-50' type='text' placeholder='Username' value={username} onChange={(event) => getUsernameInput(event as any)} required/>  
+                            <Form.Control type='text' placeholder='Username' value={username} onChange={(event) => getUsernameInput(event as any)} required/>  
                         </Form.Group> 
                         <Form.Group className='mb-4' controlId='password'>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control className='w-50' type='password' placeholder='Password' value={password} onChange={(event) => getPasswordInput(event as any)}required/>  
+                            <Form.Control type='password' placeholder='Password' value={password} onChange={(event) => getPasswordInput(event as any)}required/>  
                         </Form.Group>
                     <Button variant='primary' type='submit' onClick={login}>Sign In</Button>
                     <div className='mb-4'>
                         Don't have an account?{' '} 
-                        <Link to={'/'}>Register</Link>
+                        <Link to={'/register'}>Register</Link>
                     </div>
                 </Form>
+            </Row>
         </Container>
         }
     </>
