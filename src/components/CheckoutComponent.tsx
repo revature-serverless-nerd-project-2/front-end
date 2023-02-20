@@ -85,8 +85,6 @@ function CheckoutComponent () {
             alert('Your Order is ready!');
             console.log('Success');
         }
-
-        console.log(`passing ${username} as username`);
         const res = await axios.delete('http://3.134.105.20:4000/removals', {params: {'username': username}})
         
         dispatch(resetTotal(true));
