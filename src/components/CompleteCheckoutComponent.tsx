@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
-import { RootState } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
+import { resetTotal } from "../redux/total";
 
 
 
 function CompleteCheckoutComponent () {
     const navigate = useNavigate();
     const grandTotal: number = useSelector((state: RootState) => state.total.total);
+    const dispatch: AppDispatch = useDispatch();
 
     function onNavigate () {
-        
+        dispatch(resetTotal(true));
         return navigate('/');
     }
 
@@ -21,7 +23,7 @@ function CompleteCheckoutComponent () {
             <div className='border-box'>
             <h1>Your Order is Ready</h1>
             
-            <h2>Your total is {grandTotal}</h2>
+            <h2>Your total is ${grandTotal}</h2>
             
             
             
