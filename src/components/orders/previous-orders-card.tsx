@@ -12,12 +12,12 @@ function PreviousOrdersCard(props: any) {
     <Row>
         <p>{date}</p>
         <Col md={6}>
-            <img src={`http://3.134.105.20:4000/products/image/${order.products.key.item.imageUrl}`} alt={order.products.key.item.name} style={{maxWidth:'100%'}}/>
+            <img src={`http://3.134.105.20:4000/products/image/${order.product.key.item.imageUrl}`} alt={order.product.key.item.name} style={{maxWidth:'100%'}}/>
         </Col>
         <Col md={4} className='mb-5'>
             <ListGroup>
-                <ListGroup.Item><h1>{order.products.key.item.name}</h1></ListGroup.Item>
-                <ListGroup.Item><h2>${order.products.key.item.price}</h2></ListGroup.Item>
+                <ListGroup.Item><h1>{order.product.key.item.name}</h1></ListGroup.Item>
+                <ListGroup.Item><h2>${order.product.key.item.price}</h2></ListGroup.Item>
             </ListGroup>
         </Col>                   
     </Row>

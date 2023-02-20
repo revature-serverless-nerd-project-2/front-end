@@ -100,10 +100,11 @@ function CheckoutComponent () {
     
 <>
 
-            <h1>Checkout Form</h1>
+            
 
-            <Container>
-            <h2 className='my-4'>Shipping Information</h2>
+            <Container fluid>
+            <Row className="text-center"> <Col> <h1>Checkout Form</h1></Col></Row>
+           <Row className="text-center"> <Col> <h2 className='my-4'>Shipping Information</h2></Col></Row>
             <Form onSubmit={(e) => {e.preventDefault()}} >
             <Row className="mb-4">
                         <Form.Group as={Col} className='mb-4' controlId='Firstname'>
