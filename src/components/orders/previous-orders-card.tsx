@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
-import Date from './date';
 
 function PreviousOrdersCard(props: any) {
   const { order } = props;
-  let date = Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(order.timestamp);
-
+  let date = Date();
   return (
     <div>
     <Row>

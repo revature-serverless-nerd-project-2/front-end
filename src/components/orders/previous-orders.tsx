@@ -7,7 +7,6 @@ import LoadingComponent from "../LoadingComponent";
 import { type } from "os";
 import ProductsComponent from "../ProductsComponent";
 import PreviousOrdersCard from "./previous-orders-card";
-import Date from "./date";
 
 export interface ErrorType {
         loading: boolean
