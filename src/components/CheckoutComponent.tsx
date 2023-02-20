@@ -4,15 +4,13 @@ import { Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap';
 import { TokenType } from '../redux/token';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store';
-import { resetTotal } from '../redux/total';
+import { RootState } from '../redux/store';
 
 
 function CheckoutComponent () {
    
 
     const token: TokenType = useSelector((state: RootState) => state.token)
-    const dispatch: AppDispatch = useDispatch();
     
     const [Firstname, setFirstName] = useState('');
     const [Lastname, setLastName] = useState('');
@@ -86,8 +84,6 @@ function CheckoutComponent () {
             console.log('Success');
         }
         const res = await axios.delete('http://3.134.105.20:4000/removals', {params: {'username': username}})
-        
-        dispatch(resetTotal(true));
 
         return navigate('/complete');
     }
