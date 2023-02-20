@@ -13,6 +13,7 @@ import Register from './components/register/register';
 import Footer from './components/footer/footer';
 import { AboutUs } from './components/About/About';
 import PreviousOrdersPage from './components/orders/previous-orders';
+import LogoutComponent from './components/LogoutComponent';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path='/carts' element={<CartComponent/>}/>
               <Route path='/about-us' element={<AboutUs/>}/>
               <Route path='/previous-orders' element={<PreviousOrdersPage />}/>
+              <Route path='/logout' element={<LogoutComponent />}/>
             </Routes>
           </Container>
           <Footer/>
