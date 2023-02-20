@@ -3,46 +3,57 @@ import axios from 'axios';
 import token, { TokenType } from '../redux/token';
 import jwt_decode from 'jwt-decode'
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000/profile'
+    baseURL: 'http://3.134.105.20:4000/profile'
 })
+
+interface User {
+  username: String
+  user_name: String
+  role: String
+  address: String
+}
 
 const UserProfileComponent = (props: any) => {
 
-    const token = localStorage.getItem('token')
+  const token: TokenType = useSelector((state: RootState) => state.token);
+  const username = token.username;
+  const role = token.role;
+  const BASE_URL = 'http://3.134.105.20:4000/profile'
+  const [user, setUser] = React.useState<any>({})
 
-    const [isShow, setShow] = React.useState(true)
-    const { user } = props
-    
-    const editButtonHandler = () => {
-        setShow(!isShow)
-    }
+  async function showUserProfile(params:any) {
+    // axios get
+    const response = await axios.get(BASE_URL, 
+      {
+        params: {
+          username
+        }
+      }
+    ).then((response) => {
+      setUser(response)
+    })
 
-    const name = ''
-    const username = ''
-    const role = ''
-    const userAddress = ''
+    return response
+  }
+
+  React.useEffect(() => {
+    showUserProfile(user)
+  })
+
+  console.log(user)
+  
   return (
-    <div className='user'>
-      <h1>{"name"}</h1>
-      <h3> {"username"} </h3>
-      <br />
-      <div> {"role"} - {"address"} </div>
-      <br />
-      <button onClick={editButtonHandler}>Change your name</button>
-
-      {isShow ? <form action="">
-        <input type="text" name='name' />
-      </form> : null}
-
-      <button onClick={editButtonHandler}>Change address</button>
-      {isShow ? <form action="">
-        <input type="text" />
-      </form> : null }
-      
-      <link rel="stylesheet" href="" />
-    </div>
+    <> 
+      <div key={user.username} className = 'user'>
+        <h1>Your profile</h1>
+        <h3>{user.name}</h3>
+        <h4>{username}</h4>
+        <p>{user.address} - {role}</p>
+      </div>
+    </>
   )
 }
 
