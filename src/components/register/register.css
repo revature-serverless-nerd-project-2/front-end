@@ -1,3 +1,8 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+
+}
 h3 {
     text-align: center;
 }
@@ -7,13 +12,15 @@ h3 {
     background-color: white;
     display: flex;
     flex-flow: column;
-    max-width: 20%;
-    min-height: 675px;
+    max-width: 25%;
+    min-height: 550px;
     margin: auto;
-    padding: 30px 24px 80px;
+    padding: 45px 45px 75px;
     justify-content: center;
     box-sizing: border-box;
     line-height: 1.2;
+    margin-bottom: 15px;
+    border-radius: 10px;
 }
 
 .registerbtn {
@@ -26,6 +33,7 @@ h3 {
     outline: none;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
   }
 
   .registerbtn:hover {
@@ -42,8 +50,9 @@ h3 {
     height: 45px;
     width: 100%;
     text-indent: 2px;
+    border-radius: 3px;
   }
 
-  .background {
-    background-color: gray;
+  .background{
+    background-image: url('../../../public/background.jpg');
   }

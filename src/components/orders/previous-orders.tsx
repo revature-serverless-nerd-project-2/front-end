@@ -35,11 +35,9 @@ function PreviousOrdersPage() {
     }
 
            return(
-            
                 <>
+                <main className="background">
                 <h2 className="header">Previous Orders</h2>
-                <div>
-                <div className="container">
                 <ul>{orders.map(order => (
                     <ul key={order.product.key.key}>
                         <PreviousOrdersCard order={order}/>
@@ -47,7 +45,8 @@ function PreviousOrdersPage() {
                 ))
                 }
                 </ul>
-                </div></div></>
+                </main>
+                </>
             )}
 
         export default PreviousOrdersPage;

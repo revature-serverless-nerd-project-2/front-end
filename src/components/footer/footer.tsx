@@ -25,7 +25,7 @@ function Footer() {
           <div className='footer-link-items'>
             <h2>Orders</h2>
             <Link to='/previous-orders'>Previous Orders</Link>
-            <Link to='/'>Cart</Link>
+            <Link to='/carts'>Cart</Link>
           </div>
         </div>
       </div>
