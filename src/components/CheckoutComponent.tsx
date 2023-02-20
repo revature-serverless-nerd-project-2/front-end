@@ -92,7 +92,7 @@ function CheckoutComponent () {
     
 <>
 
-<h1>Checkout Form</h1>
+            <h1>Checkout Form</h1>
 
             <Container>
             <h2 className='my-4'>Shipping Information</h2>
@@ -115,14 +115,16 @@ function CheckoutComponent () {
                             <Form.Label>Email</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='Enter email' value={Email} onChange={(event) => getEmailInput(event as any)} required/>  
                         </Form.Group>
-                        <Form.Group className='mb-4' controlId='Address'>
+                        <Row className="mb-4">
+                        <Form.Group as={Col} className='mb-4' controlId='Address'>
                             <Form.Label>Address</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='1234 Main St' value={Address} onChange={(event) => getAddressInput(event as any)} required/>  
                         </Form.Group>
-                        <Form.Group className='mb-4' controlId='Address2'>
+                        <Form.Group as={Col} className='mb-4' controlId='Address2'>
                             <Form.Label>Address2</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='Apartment, studio, or floor' value={Address2} onChange={(event) => getAddress2Input(event as any)}/>  
                         </Form.Group>
+                        </Row>
                         <Row className="mb-4">
                         <Form.Group as={Col} className='mb-3' controlId='City'>
                             <Form.Label>City</Form.Label>

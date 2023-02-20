@@ -1,24 +1,40 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
+import { RootState } from "../redux/store";
+
+
 
 function CompleteCheckoutComponent () {
     const navigate = useNavigate();
+    const grandTotal: number = useSelector((state: RootState) => state.total.total);
 
     function onNavigate () {
         
         return navigate('/');
     }
-    return (
+
+    return ( 
         <div>
+            <>
             <div className='border-box'>
-            <h2>Your Order is Ready</h2>
-            <Button bsPrefix='btn-cart' onClick={onNavigate}>Back To Home</Button>
-           
-            </div>
+            <h1>Your Order is Ready</h1>
             
+            <h2>Your total is {grandTotal}</h2>
+            
+            
+            
+            <Button bsPrefix='btn-cart' onClick={onNavigate}>Back To Home</Button>
+            
+            </div>
+            </>
 
 
-        </div>
+        </div> 
+    
     )
 }
 export default CompleteCheckoutComponent;
+
+
