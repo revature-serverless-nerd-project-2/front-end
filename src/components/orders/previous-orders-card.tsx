@@ -12,7 +12,7 @@ function PreviousOrdersCard(props: any) {
     <Row>
         <p>{date}</p>
         <Col md={6}>
-            <img src={`http://localhost:8080/products/image/${order.products.key.item.imageUrl}`} alt={order.products.key.item.name} style={{maxWidth:'100%'}}/>
+            <img src={`http://3.134.105.20:4000/products/image/${order.products.key.item.imageUrl}`} alt={order.products.key.item.name} style={{maxWidth:'100%'}}/>
         </Col>
         <Col md={4} className='mb-5'>
             <ListGroup>
