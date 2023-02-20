@@ -27,9 +27,15 @@ function PreviousOrdersPage() {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }     
         });
-
+        if (response){
         setOrders(response.data);
+    } else {
+        alert('No orders have been made with this account.');
     }
+
+    }
+
+    console.log(orders)
 
            return(
             
@@ -38,7 +44,7 @@ function PreviousOrdersPage() {
                 <div>
                 <div className="container">
                 <ul>{orders.map(order => (
-                    <ul key={order.timestamp}>
+                    <ul key={order.product.key.key}>
                         <PreviousOrdersCard order={order}/>
                         </ul>  
                 ))
