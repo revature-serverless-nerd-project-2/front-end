@@ -29,6 +29,7 @@ function PreviousOrdersPage() {
         });
 
         setOrders(response.data);
+        console.log('here');
     }
 
            return(
