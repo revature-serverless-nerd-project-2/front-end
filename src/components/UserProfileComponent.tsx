@@ -51,7 +51,7 @@ const UserProfileComponent = (props: any) => {
         <h1>Your profile</h1>
         <h3>{user.name}</h3>
         <h4>{username}</h4>
-        <p>{user.address} - {role}</p>
+        <p>{user.address}  {role}</p>
       </div>
     </>
   )
