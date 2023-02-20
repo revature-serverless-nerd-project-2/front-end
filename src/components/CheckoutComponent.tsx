@@ -2,15 +2,17 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap';
 import { TokenType } from '../redux/token';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { resetTotal } from '../redux/total';
 
 
 function CheckoutComponent () {
    
 
     const token: TokenType = useSelector((state: RootState) => state.token)
+    const dispatch: AppDispatch = useDispatch();
     
     const [Firstname, setFirstName] = useState('');
     const [Lastname, setLastName] = useState('');
@@ -83,6 +85,12 @@ function CheckoutComponent () {
             alert('Your Order is ready!');
             console.log('Success');
         }
+
+        console.log(`passing ${username} as username`);
+        const res = await axios.delete('http://3.134.105.20:4000/removals', {params: {'username': username}})
+        
+        dispatch(resetTotal(true));
+
         return navigate('/complete');
     }
 
