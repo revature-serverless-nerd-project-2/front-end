@@ -2,25 +2,29 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap';
 import { TokenType } from '../redux/token';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { CartID } from '../redux/cartID';
 
 
 function CheckoutComponent () {
    
 
-    const token: TokenType = useSelector((state: RootState) => state.token)
+    const token: TokenType = useSelector((state: RootState) => state.token);
+    const cartID: string = useSelector((state: RootState) => state.cartID.id);
     
     const [Firstname, setFirstName] = useState('');
     const [Lastname, setLastName] = useState('');
-    const [username, setUsername] = useState('');
+    //const [username, setUsername] = useState('');
     const [Email, setEmail] = useState('');
     const [Address, setAddress] = useState('');
     const [Address2, setAddress2] = useState('');
     const [City, setCity] = useState('');
     const [State, setState] = useState('');
     const [Zip, setZip] = useState(0);
+
+    const username = token.username;
 
     const navigate = useNavigate();
 
@@ -30,9 +34,9 @@ function CheckoutComponent () {
     const getLastNameInput = (event: React.FormEvent<HTMLInputElement>) =>{
         setLastName(event.currentTarget.value);
     }
-    const getUsernameInput = (event: React.FormEvent<HTMLInputElement>) =>{
+    /*const getUsernameInput = (event: React.FormEvent<HTMLInputElement>) =>{
       setUsername(event.currentTarget.value);
-    }
+    }*/
     const getEmailInput = (event: React.FormEvent<HTMLInputElement>) =>{
         setEmail(event.currentTarget.value);
     }
@@ -62,13 +66,22 @@ function CheckoutComponent () {
     //   setCart (response.data);
     // }
 
-    
+    let user: string;
+        if(!username){
+            if(cartID){
+                user = cartID;
+            } else {
+                user = username;
+            }
+        } else {
+            user = username;
+        }
     
     async function checkout() {
-        const response = await axios.post('http://localhost:8080/orders', {
+        const response = await axios.post('http://3.134.105.20:4000/orders', {
             'Firstname':Firstname, 
             'Lastname':Lastname, 
-            'username' :username,
+            'username' :user,
             'Email' :Email,
             'Address' :Address,
             'City' :City,
@@ -83,6 +96,8 @@ function CheckoutComponent () {
             alert('Your Order is ready!');
             console.log('Success');
         }
+        const res = await axios.delete('http://3.134.105.20:4000/removals', {params: {'username': user}})
+
         return navigate('/complete');
     }
 
@@ -92,10 +107,11 @@ function CheckoutComponent () {
     
 <>
 
-            <h1>Checkout Form</h1>
+            
 
-            <Container>
-            <h2 className='my-4'>Shipping Information</h2>
+            <Container fluid>
+            <Row className="text-center"> <Col> <h1>Checkout Form</h1></Col></Row>
+           <Row className="text-center"> <Col> <h2 className='my-4'>Shipping Information</h2></Col></Row>
             <Form onSubmit={(e) => {e.preventDefault()}} >
             <Row className="mb-4">
                         <Form.Group as={Col} className='mb-4' controlId='Firstname'>
@@ -107,10 +123,10 @@ function CheckoutComponent () {
                             <Form.Control className='w-50' type='text' placeholder='Lastname' value={Lastname} onChange={(event) => getLastNameInput(event as any)} required/>  
                         </Form.Group>
                         </Row>
-                        <Form.Group as={Col} className='mb-4' controlId='username'>
+                        {/* <Form.Group as={Col} className='mb-4' controlId='username'>
                             <Form.Label>username</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='username' value={username} onChange={(event) => getUsernameInput(event as any)} required/>  
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className='mb-4' controlId='Email'>
                             <Form.Label>Email</Form.Label>
                             <Form.Control className='w-50' type='text' placeholder='Enter email' value={Email} onChange={(event) => getEmailInput(event as any)} required/>  

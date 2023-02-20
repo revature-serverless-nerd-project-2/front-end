@@ -14,6 +14,7 @@ import Footer from './components/footer/footer';
 import { AboutUs } from './components/About/About';
 import PreviousOrdersPage from './components/orders/previous-orders';
 import UserProfileComponent from './components/UserProfileComponent';
+import LogoutComponent from './components/LogoutComponent';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
               <Route path='/about-us' element={<AboutUs/>}/>
               <Route path='/previous-orders' element={<PreviousOrdersPage />}/>
               <Route path='/profile' element ={<UserProfileComponent/>}/>
+              <Route path='/logout' element={<LogoutComponent />}/>
             </Routes>
           </Container>
           <Footer/>

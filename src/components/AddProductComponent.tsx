@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Container, Form } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { TokenType } from '../redux/token';
@@ -46,7 +46,7 @@ function AddProductComponent() {
         formData.append('quantity', String(quantity));
 
         try {
-            const response = await axios.post('http://localhost:8080/products', formData, {
+            const response = await axios.post('http://3.134.105.20:4000/products', formData, {
                 headers: {"Content-Type": "multipart/form-data"}
             })
             if (response.status === 201){
@@ -64,32 +64,31 @@ function AddProductComponent() {
         {
             token.role !== 'Admin' ? <UnauthorizedComponent/> :
         <Container>
-            <h1 className='my-4'>Add a product</h1>
+            <Row className="text-center"><Col><h1 >Add Product</h1></Col>   
             <Form onSubmit={(e) => {e.preventDefault()}} >
                         <Form.Group className='mb-4' controlId='formFile'>
                             <Form.Label >Image</Form.Label>
-                            <Form.Control className='w-50' type='file'  onChange={(event) => getImageInput(event as any)} required/>  
+                            <Form.Control type='file'  onChange={(event) => getImageInput(event as any)} required/>  
                         </Form.Group> 
                         <Form.Group className='mb-4' controlId='name'>
                             <Form.Label>Name</Form.Label>
-                            <Form.Control className='w-50' type='text' placeholder='Name' value={name} onChange={(event) => getNameInput(event as any)} required/>  
+                            <Form.Control type='text' placeholder='Name' value={name} onChange={(event) => getNameInput(event as any)} required/>  
                         </Form.Group>
                         <Form.Group className='mb-4' controlId='desc'>
                             <Form.Label>Description</Form.Label>
-                            <Form.Control className='w-50' type='text' placeholder='Description' value={desc} onChange={(event) => getDescInput(event as any)} required/>  
+                            <Form.Control type='text' placeholder='Description' value={desc} onChange={(event) => getDescInput(event as any)} required/>  
                         </Form.Group>
                         <Form.Group className='mb-4' controlId='price'>
                             <Form.Label>Price</Form.Label>
-                            <Form.Control className='w-50' type='number' placeholder='Price' value={price} onChange={(event) => getPriceInput(event as any)} required/>  
+                            <Form.Control type='number' placeholder='Price' value={price} onChange={(event) => getPriceInput(event as any)} required/>  
                         </Form.Group>
                         <Form.Group className='mb-4' controlId='quantity'>
                             <Form.Label>Quantity</Form.Label>
-                            <Form.Control className='w-50' type='number' placeholder='Quantity' value={quantity} onChange={(event) => getQuantityInput(event as any)} required/>  
+                            <Form.Control type='number' placeholder='Quantity' value={quantity} onChange={(event) => getQuantityInput(event as any)} required/>  
                         </Form.Group>
-                    <Button variant='primary' type='submit' onClick={submit}>Add product</Button>
-                    
+                    <Button variant='primary' type='submit' onClick={submit}>Add product</Button>    
                 </Form>
-        
+            </Row> 
         </Container>
         }
     </>

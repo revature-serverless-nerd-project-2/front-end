@@ -10,9 +10,19 @@ export const totalSlice = createSlice({
     reducers: {
         addToTotal(state: {total: number}, action: PayloadAction<Cost>){
             state.total += action.payload.total;
+        },
+
+        resetTotal(state: {total: number}, action: PayloadAction<boolean>){
+            if(action){
+                state.total = 0;
+            }
+        },
+
+        updateTotal(state: {total: number}, action: PayloadAction<Cost>){
+            state.total = action.payload.total;
         }
     }
 })
 
-export const {addToTotal} = totalSlice.actions;
+export const { addToTotal, resetTotal, updateTotal } = totalSlice.actions;
 export default totalSlice.reducer;

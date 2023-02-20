@@ -7,7 +7,6 @@ import LoadingComponent from "../LoadingComponent";
 import { type } from "os";
 import ProductsComponent from "../ProductsComponent";
 import PreviousOrdersCard from "./previous-orders-card";
-import Date from "./date";
 
 export interface ErrorType {
         loading: boolean
@@ -27,8 +26,12 @@ function PreviousOrdersPage() {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }     
         });
-
+        if (response){
         setOrders(response.data);
+    } else {
+        alert('No orders have been made with this account.');
+    }
+
     }
 
            return(
@@ -38,7 +41,7 @@ function PreviousOrdersPage() {
                 <div>
                 <div className="container">
                 <ul>{orders.map(order => (
-                    <ul key={order.timestamp}>
+                    <ul key={order.product.key.key}>
                         <PreviousOrdersCard order={order}/>
                         </ul>  
                 ))
