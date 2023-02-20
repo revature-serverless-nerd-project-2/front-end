@@ -4,9 +4,9 @@ import { TokenType } from '../redux/token';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 import { CartID, setCartID } from '../redux/cartID';
-import { v4 as uuidv4 } from 'uuid';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { v4 as uuidv4 } from 'uuid';
+import { Button, Card } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function CartComponent(){
     const token: TokenType = useSelector((state: RootState) => state.token);
@@ -62,15 +62,22 @@ export default function CartComponent(){
                     <Card.Text><strong>${product.price}</strong></Card.Text>
                 </Card.Body>
             </Card>
+           
             </div>
         )
     })
+    const navigate = useNavigate();
 
+    function onNavigate () {
+        
+        return navigate('/checkout');
+    }
     return (
         <div>            
             <h1>Cart</h1>
             {mappedCart}
             <h2>Total Amount: ${total}</h2>
+            <Button bsPrefix='btn-cart' onClick={onNavigate}>Proceed to checkout</Button>
         </div>
     );
 }
