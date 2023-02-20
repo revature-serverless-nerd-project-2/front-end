@@ -67,17 +67,18 @@ function CheckoutComponent () {
     // }
 
     let user: string;
-        if(!username){
-            if(cartID){
-                user = cartID;
-            } else {
-                user = username;
-            }
+    if(!username){
+        if(cartID){
+            user = cartID;
+        } else {
+            user = username;
+        }
         } else {
             user = username;
         }
     
     async function checkout() {
+        console.log(user);
         const response = await axios.post('http://3.134.105.20:4000/orders', {
             'Firstname':Firstname, 
             'Lastname':Lastname, 
